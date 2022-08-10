@@ -1,0 +1,7 @@
+datetime
+typing
+numpy
+requests
+web3
+peewee
+psycopg2-binary
