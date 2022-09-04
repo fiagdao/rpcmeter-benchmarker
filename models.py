@@ -45,6 +45,8 @@ class Benchmark(Model):
     p99 = FloatField()
     mean = FloatField()
 
+    region = ForeignKeyField(Region, backref="region")
+
     class Meta:
         database = db
 

@@ -115,6 +115,7 @@ def main_loop():
                     p90=pxxDict["p90"],
                     p99=pxxDict["p99"],
                     mean=mean,
+                    region=Region.select().where(Region.name==os.environ["REGION"])[0]
                 )
                 logger.info(f"Finished benchmark for provider {provider.name}, results: {pxxDict}, raw results: {balance_times}")
         time.sleep(ROUND_DELAY)
