@@ -117,10 +117,10 @@ def main_loop():
                     mean=mean,
                 )
                 logger.info(f"Finished benchmark for provider {provider.name}, results: {pxxDict}, raw results: {balance_times}")
-            time.sleep(ROUND_DELAY)
-            if quit_event.is_set():
-                logger.info("Received SIGINT, quitting.")
-                break
+        time.sleep(ROUND_DELAY)
+        if quit_event.is_set():
+            logger.info("Received SIGINT, quitting.")
+            break
 
 if __name__ == '__main__':
     logger.info("Starting main loop")
