@@ -30,7 +30,6 @@ class Provider(Model):
     url = CharField()
     symbol = CharField()
     chain = ForeignKeyField(Chain, backref="chain")
-    region = ForeignKeyField(Region, backref="region")
 
     class Meta:
         database = db
