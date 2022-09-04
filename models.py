@@ -6,6 +6,7 @@ DATABASE=os.environ["POSTGRES_DATABASE"]
 USER=os.environ["POSTGRES_USER"]
 PORT=os.environ["POSTGRES_PORT"]
 PASSWORD=os.environ["POSTGRES_PASSWORD"]
+REGION=os.environ["REGION"]
 
 db = PostgresqlDatabase(DATABASE, user=USER, port=PORT, password=PASSWORD, host=HOST)
 
@@ -51,3 +52,8 @@ class Benchmark(Model):
 
 db.connect()
 db.create_tables([Region, Chain, Provider, Benchmark])
+
+# if REGION does not exist, create it
+if not Region.select().where(Region.name==REGION).exists():
+    region_code = REGION[:3]
+    Region.create(name=REGION, code=region_code)
