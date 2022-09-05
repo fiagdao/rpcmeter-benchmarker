@@ -16,7 +16,7 @@ import random
 import schedule
 import pytz
 
-VERSION = 1.1.0
+VERSION = "1.1.0"
 
 # this is to prevent hard shutdowns where the process is interrupted halfway through etc.
 quit_event = Event()
