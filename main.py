@@ -16,7 +16,7 @@ import random
 import schedule
 import pytz
 
-VERSION = "1.1.0"
+VERSION = "1.1.3"
 
 # this is to prevent hard shutdowns where the process is interrupted halfway through etc.
 quit_event = Event()
@@ -45,14 +45,19 @@ request_payload = {
     'id': 1,
 }
 
+RETRIES = 10
 def send_request(url: str):
-    try:
-        start = time.time()
-        response = requests.post(url, headers=headers, timeout=2, json=request_payload)
-        end = time.time()
-        return end-start
-    except:
-        return 0
+    for i in range(RETRIES):
+        try:
+            start = time.time()
+            response = requests.post(url, headers=headers, json=request_payload)
+            end = time.time()
+            if response.status_code == 200:
+                return end - start
+            else:
+                logger.error(f"Request failed with status code {response.status_code}")
+        except Exception as e:
+            logger.error(f"Request failed with exception {e}")
 
 # allows threading functions to give return values.
 class Request(Thread):
