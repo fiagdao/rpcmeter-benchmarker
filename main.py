@@ -12,6 +12,7 @@ import time
 import json
 import numpy as np
 import requests
+import random
 
 # this is to prevent hard shutdowns where the process is interrupted halfway through etc.
 quit_event = Event()
@@ -73,7 +74,8 @@ def main_loop():
             # currently we don't need regional support
             # for provider in Provider.select().where(Provider.region==Region.select().where(Region.name==os.environ["REGION"])[0]): 
 
-            for provider in Provider.select():
+            # prevent same provider from getting slammed by different regions
+            for provider in random.shuffle(Provider.select()):
                 logger.info(f"Starting new round of requests for provider {provider.name}")
                 w3 = Web3(Web3.HTTPProvider(provider.url))
 
