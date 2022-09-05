@@ -73,9 +73,16 @@ def main_loop():
 
             # currently we don't need regional support
             # for provider in Provider.select().where(Provider.region==Region.select().where(Region.name==os.environ["REGION"])[0]): 
+    
+            providers = []
 
+            for provider in Provider.select():
+                providers.append(provider)
+
+
+            random.shuffle(providers)
             # prevent same provider from getting slammed by different regions
-            for provider in random.shuffle(Provider.select()):
+            for provider in providers:
                 logger.info(f"Starting new round of requests for provider {provider.name}")
                 w3 = Web3(Web3.HTTPProvider(provider.url))
 
